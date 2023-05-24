@@ -39,7 +39,6 @@ class Solver:
 
     def backtracking(self):
         pass
-        # Write your code here
 
     def forward_check(self, var):
         pass
@@ -61,8 +60,10 @@ class Solver:
         # Write your code here
 
     def is_consistent(self, var: Variable):
-        pass
-        # Write your code here
+        for c in self.problem.constraints:
+            if var in c.variables and not c.is_satisfied():
+                return False
+        return True
 
 
     def lcv(self, var: Variable):
