@@ -72,5 +72,18 @@ class Solver:
         return True
 
     def lcv(self, var: Variable):
-        pass
-        # Write your code here
+        min_conflict = float('+inf')
+        min_index = 0
+        index = 0
+        for value in var.domain:
+            counter = 0
+            var.value = value
+            for c in self.problem.constraints:
+                if var in c.variables and not c.is_satisfied():
+                    counter += 1
+            if counter < min_conflict:
+                min_conflict = counter
+                min_index = index
+            index += 1
+        var.value = None
+        return min_index
