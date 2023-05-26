@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from CSP.Constraint import Constraint
-from CSP.Variable import Variable
+from Constraint import Constraint
+from Variable import Variable
 
 
 class Problem(ABC):
