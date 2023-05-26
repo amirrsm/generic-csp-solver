@@ -5,8 +5,8 @@ from collections import deque
 from copy import deepcopy
 from typing import Optional
 
-from CSP.Problem import Problem
-from CSP.Variable import Variable
+from Problem import Problem
+from Variable import Variable
 
 
 class Solver:
@@ -37,7 +37,22 @@ class Solver:
             print(f'Failed to solve after {time_elapsed} ms')
 
     def backtracking(self):
-        pass
+        return self.recursive_backtracking([])
+
+    def recursive_backtracking(self, assignment_list):
+        if len(assignment_list) == len(self.problem.variables):
+            return self.problem.variables
+        var = self.select_unassigned_variable()
+        for value in self.order_domain_values(var):
+            var.value = value
+            if self.is_consistent(var):
+                assignment_list.append(var)
+                result = self.recursive_backtracking(assignment_list)
+                if result is not False:
+                    return result
+            assignment_list.remove(var)
+            var.value = None
+        return False
 
     def forward_check(self, var: Variable):
         for neighbor in var.neighbors:

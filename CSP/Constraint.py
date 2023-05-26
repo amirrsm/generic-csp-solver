@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from CSP.Variable import Variable
+from Variable import Variable
 
 
 class Constraint(ABC):
