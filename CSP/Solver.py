@@ -36,13 +36,19 @@ class Solver:
         else:
             print(f'Failed to solve after {time_elapsed} ms')
 
-
     def backtracking(self):
         pass
 
-    def forward_check(self, var):
-        pass
-        # Write your code here
+    def forward_check(self, var: Variable):
+        for neighbor in var.neighbors:
+            if not neighbor.has_value:
+                for value in neighbor.domain:
+                    neighbor.value = value
+                    if not self.is_consistent(neighbor):
+                        neighbor.domain.remove(value)
+                        if len(neighbor.domain) == 0:
+                            return False
+        return True
 
     def select_unassigned_variable(self) -> Optional[Variable]:
         if self.use_mrv:
@@ -65,9 +71,6 @@ class Solver:
                 return False
         return True
 
-
     def lcv(self, var: Variable):
         pass
         # Write your code here
-
-

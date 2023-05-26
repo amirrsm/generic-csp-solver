@@ -14,7 +14,7 @@ class Variable(Generic[T]):
         self._value = initial_value
         self._domain = domain
         self.name = name
-        self.neighbors = set({})
+        self.neighbors: set[Variable] = set({})
 
     @property
     def value(self) -> T:
