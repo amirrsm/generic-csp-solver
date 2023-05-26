@@ -24,10 +24,10 @@ class Solver:
     def solve(self):
         self.problem.calculate_neighbors()
         start = time.time()
-        for var in self.problem.variables:
-            if not self.forward_check(var):
-                print("Problem Unsolvable")
-                return
+        # for var in self.problem.variables:
+        #     if not self.forward_check(var):
+        #         print("Problem Unsolvable")
+        #         return
         result = self.backtracking()
         end = time.time()
         time_elapsed = (end - start) * 1000
@@ -88,18 +88,13 @@ class Solver:
         return True
 
     def lcv(self, var: Variable):
-        min_conflict = float('+inf')
-        min_index = 0
-        index = 0
+        new_domain = {}
         for value in var.domain:
             counter = 0
             var.value = value
             for c in self.problem.constraints:
                 if var in c.variables and not c.is_satisfied():
                     counter += 1
-            if counter < min_conflict:
-                min_conflict = counter
-                min_index = index
-            index += 1
+            new_domain[value] = counter
         var.value = None
-        return min_index
+        return [value[0] for value in sorted(new_domain.items(), key=lambda item: item[1])]
