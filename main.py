@@ -10,7 +10,7 @@ from Sudoku.SudokuProblem import SudokuProblem
 # states.print_assignments()
 #
 #
-#secret_santa = SecretSantaProblem(['arman', 'alice', 'nader', 'bob', 'sarah', 'iman'])
+# secret_santa = SecretSantaProblem(['arman', 'alice', 'nader', 'bob', 'sarah', 'iman'])
 # secret_santa = SecretSantaProblem([str(i) for i in range(100)])
 # # secret_santa.assign_givers_and_receivers()
 # s = Solver(secret_santa)
@@ -60,8 +60,43 @@ grid2 = [
     [0, 0, 5, 0, 1, 0, 3, 0, 0]
 ]
 
+grid3_ex = [
+    [0, 1, 0, 0, 0, 6, 4, 0, 0],
+    [0, 9, 0, 4, 5, 0, 0, 2, 0],
+    [5, 0, 0, 0, 0, 7, 0, 0, 0],
+    [0, 0, 0, 0, 0, 5, 0, 0, 0],
+    [9, 0, 0, 1, 8, 0, 7, 0, 0],
+    [0, 2, 0, 0, 0, 0, 0, 0, 3],
+    [8, 0, 0, 9, 4, 0, 1, 0, 0],
+    [0, 0, 9, 6, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 7, 0]
+]
 
-sudoku = SudokuProblem(grid1)
+grid4_ex = [
+    [6, 0, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 9, 0, 5, 6, 0, 0, 8],
+    [0, 3, 0, 0, 0, 0, 0, 4, 0],
+    [0, 0, 6, 0, 7, 8, 0, 0, 5],
+    [0, 0, 0, 0, 0, 2, 0, 0, 0],
+    [9, 0, 0, 0, 0, 0, 6, 0, 0],
+    [0, 0, 0, 9, 0, 0, 0, 0, 1],
+    [4, 0, 0, 0, 1, 7, 0, 8, 0],
+    [0, 0, 7, 2, 0, 0, 0, 0, 0]
+]
+
+grid5_ex = [
+    [0, 6, 0, 0, 0, 0, 0, 4, 0],
+    [0, 0, 3, 0, 0, 0, 0, 2, 0],
+    [0, 0, 7, 0, 5, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0, 0],
+    [0, 0, 0, 9, 0, 4, 0, 0, 0],
+    [0, 0, 2, 0, 0, 0, 0, 0, 7],
+    [0, 1, 0, 0, 0, 0, 0, 0, 0],
+    [4, 0, 6, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 2, 0, 9, 0, 8]
+]
+
+sudoku = SudokuProblem(grid3_ex)
 s = Solver(sudoku, use_mrv=True, use_lcv=True)
 s.solve()
 sudoku.print_assignments()

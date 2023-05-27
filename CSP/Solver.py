@@ -24,10 +24,10 @@ class Solver:
     def solve(self):
         self.problem.calculate_neighbors()
         start = time.time()
-        # for var in self.problem.variables:
-        #     if not self.forward_check(var):
-        #         print("Problem Unsolvable")
-        #         return
+        for var in self.problem.variables:
+            if not self.forward_check(var):
+                print("Problem Unsolvable")
+                return
         result = self.backtracking()
         end = time.time()
         time_elapsed = (end - start) * 1000
@@ -45,6 +45,7 @@ class Solver:
         var = self.select_unassigned_variable()
         for value in self.order_domain_values(var):
             var.value = value
+            # if self.forward_check(var):
             if self.is_consistent(var):
                 result = self.recursive_backtracking()
                 if result is not False:
@@ -53,14 +54,17 @@ class Solver:
         return False
 
     def forward_check(self, var: Variable):
-        for neighbor in var.neighbors:
-            if not neighbor.has_value:
-                for value in neighbor.domain:
-                    neighbor.value = value
-                    if not self.is_consistent(neighbor):
-                        neighbor.domain.remove(value)
-                        if len(neighbor.domain) == 0:
-                            return False
+        if var.has_value:
+            for neighbor in var.neighbors:
+                if not neighbor.has_value:
+                    for value in neighbor.domain:
+                        neighbor.value = value
+                        if not self.is_consistent(neighbor):
+                            neighbor.domain.remove(value)
+                            if len(neighbor.domain) == 0:
+                                return False
+                        neighbor.value = None
+
         return True
 
     def select_unassigned_variable(self) -> Optional[Variable]:
